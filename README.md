@@ -18,27 +18,33 @@ As part of this formalization, we also formalize locally cartesian closed catego
   - [x] The Beck-Chevalley condition in LCCC
   - [x] LCCC structure on types
   - [x] LCCC structure on presheaves of types
+  - [x] Isomorphisms of partial-product fans (`PartialProduct.Fan.ext`) (by Unity)
 
 - [ ] Univariate Polynomial Functors
   - [x] Definition of univariate polynomial functors
   - [x] The construction of associated polynomial functors
+    - [x] Identity-polynomial evaluation `(id B) @ X ≅ B × X` (`UvPoly.idApplyIso`) (by Unity)
   - [x] Monomials
   - [x] Linear polynomials
+    - [x] Scalar multiplication preserves exponentiability (`UvPoly.smul`) (by Unity)
   - [x] Sums of polynomials
+    - [x] Evaluation-of-sums equivalence (`Poly.sumEquiv`) (by Unity)
   - [ ] Products of polynomials
   - [x] Composition of polynomials
   - [x] The classifying property of polynomial functors
+    - [x] Universal-property equivalence inverse laws (`UvPoly.equiv`) (by Unity)
   - [x] The monoidal category `C [X]` of univariate polynomial functors
   - [ ] Cartesian closedness of a category of polynomial functors
 
 - [ ] Multivariate Polynomial Functors
   - [x] Definition of multivariate polynomial functors
   - [x] The construction of associated polynomial functors
+    - [x] Identity-polynomial evaluation in the slice (`MvPoly.idApplyIso`) (by Unity)
   - [x] Monomials
   - [x] Linear polynomials
   - [ ] Symmetric polynomials
   - [ ] Sums of polynomials
-  - [ ] Products of polynomials
+  - [x] Products of polynomials: construction and exponentiability (`MvPoly.prod`) (by Unity)
   - [x] Composition of polynomials
   - [ ] The classifying property of polynomial functors
   - [ ] The bicategory of multivariate polynomial functors
