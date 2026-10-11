@@ -2,7 +2,7 @@
 [![Documentation](https://img.shields.io/badge/Documentation-Passing-green)](https://sinhp.github.io/groupoid_model_in_lean4/docs/Poly/UvPoly.html)
 [![Paper](https://img.shields.io/badge/Paper-WIP-blue)](https://sinhp.github.io/groupoid_model_in_lean4/blueprint/sect0005.html)
 
-[Proofs Verified with Lean4 (leanprover/lean4:v4.18.0-rc1)](https://github.com/sinhp/LeanHomotopyFrobenius/blob/master/lean-toolchain)
+[Built with Lean 4.34.1](https://github.com/sosudo/Poly/blob/master/lean-toolchain)
 
 # Lean4 Formalization Of Polynomial Functors
 
