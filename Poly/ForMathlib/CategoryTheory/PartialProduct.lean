@@ -121,14 +121,26 @@ instance : Category (Fan s X) where
   comp_id f := by dsimp; ext; simp
   assoc f g h := by dsimp; ext; simp
 
+namespace Fan
+
 /-- Constructs an isomorphism of `PartialProduct.Fan`s out of an isomorphism of the apexes
 that commutes with the projections. -/
-def Fan.ext {c c' : Fan s X} (e : c.pt ≅ c'.pt)
+def ext {c c' : Fan s X} (e : c.pt ≅ c'.pt)
     (h₁ : e.hom ≫ c'.fst = c.fst)
     (h₂ : pullbackMap e.hom ≫ c'.snd = c.snd) :
     c ≅ c' where
   hom := ⟨e.hom, h₁, h₂⟩
-  inv := ⟨e.inv, by simp [Iso.inv_comp_eq, h₁] , by sorry⟩
+  inv := ⟨e.inv, by simp [Iso.inv_comp_eq, h₁] , by
+    rw [← h₂, ← Category.assoc]
+    have hi : e.inv ≫ c.fst = c'.fst := by simp [Iso.inv_comp_eq, h₁]
+    have h : pullbackMap e.inv hi ≫ pullbackMap e.hom h₁ = 𝟙 _ := by
+      ext <;> simp [pullbackMap, pullback.lift_fst, pullback.lift_snd,
+        pullback.lift_fst_assoc, Category.assoc]
+    rw [h, Category.id_comp]⟩
+  hom_inv_id := by apply Fan.Hom.ext; exact e.hom_inv_id
+  inv_hom_id := by apply Fan.Hom.ext; exact e.inv_hom_id
+
+end Fan
 
 structure IsLimit (cone : Fan s X) where
   /-- There is a morphism from any cone apex to `cone.pt` -/
