@@ -98,7 +98,7 @@ def idIso : (UvPoly.id B).functor ≅ star B ⋙ Over.forget B :=
   isoWhiskerRight (isoWhiskerLeft _ (pushforwardIdIso B)) (Over.forget B)
 
 /-- Evaluating the identity polynomial at an object `X` is isomorphic to `B × X`. -/
-def idApplyIso (X : C) : (id B) @ X ≅ B ⨯ X := sorry
+def idApplyIso (X : C) : (id B) @ X ≅ B ⨯ X := (idIso B).app X
 
 variable {B}
 
