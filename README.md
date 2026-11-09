@@ -20,22 +20,28 @@ As part of this formalization, we also formalize locally cartesian closed catego
   - [x] The Beck-Chevalley condition in LCCC
   - [x] LCCC structure on types
   - [x] LCCC structure on presheaves of types
+  - [x] Isomorphisms of partial-product fans (`PartialProduct.Fan.ext`)
 
 - [ ] Univariate Polynomial Functors
   - [x] Definition of univariate polynomial functors
   - [x] The construction of associated polynomial functors
+    - [x] Identity-polynomial evaluation `(id B) @ X ≅ B × X` (`UvPoly.idApplyIso`)
   - [x] Monomials
   - [x] Linear polynomials
+    - [x] Scalar multiplication preserves exponentiability (`UvPoly.smul`)
   - [x] Sums of polynomials
+    - [x] Evaluation-of-sums equivalence (`Poly.sumEquiv`)
   - [ ] Products of polynomials
   - [x] Composition of polynomials
   - [x] The classifying property of polynomial functors
+    - [x] Universal-property equivalence inverse laws (`UvPoly.equiv`)
   - [x] The monoidal category `C [X]` of univariate polynomial functors
   - [ ] Cartesian closedness of a category of polynomial functors
 
 - [ ] Multivariate Polynomial Functors
   - [x] Definition of multivariate polynomial functors
   - [x] The construction of associated polynomial functors
+    - [x] Identity-polynomial evaluation in the slice (`MvPoly.idApplyIso`)
   - [x] Monomials
   - [x] Linear polynomials
   - [ ] Symmetric polynomials

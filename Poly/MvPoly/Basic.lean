@@ -104,19 +104,13 @@ def apply {I O : C} (P : MvPoly I O) [ExponentiableMorphism P.p] : Over I → Ov
 /-TODO: write a coercion from `MvPoly` to a functor for evaluation of polynomials at a given
 object.-/
 
-def idApplyIso (q : X ⟶ I) : (id I).apply (Over.mk q) ≅ Over.mk q where
-  hom := by
-    simp [apply]
-    exact {
-      left := by
-        dsimp
-        sorry
-      right := sorry
-      w := sorry
-    }
-  inv := sorry
-  hom_inv_id := sorry
-  inv_hom_id := sorry
+/-- Evaluating the identity polynomial returns the input slice object.
+The isomorphism composes the identity isomorphisms for pullback, pushforward, and map. -/
+def idApplyIso (q : X ⟶ I) : (id I).apply (Over.mk q) ≅ Over.mk q :=
+  (Over.map (𝟙 I)).mapIso
+    ((pushforward (𝟙 I)).mapIso (Over.pullbackId.app (Over.mk q)) ≪≫
+      (pushforwardIdIso I).app (Over.mk q)) ≪≫
+    (Over.mapId I).app (Over.mk q)
 
 section Composition
 

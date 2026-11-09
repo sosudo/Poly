@@ -149,7 +149,8 @@ def sumEquiv : (P.sum Q) X ≃ P X ⊕ Q X where
     | Sum.inl ⟨b, x⟩ => ⟨Sum.inl b, x⟩
     | Sum.inr ⟨b, x⟩ => ⟨Sum.inr b, x⟩
   left_inv := by
-    sorry
+    rintro ⟨b, x⟩
+    cases b <;> rfl
   right_inv := by
     aesop_cat
 

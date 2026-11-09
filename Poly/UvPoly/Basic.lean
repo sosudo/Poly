@@ -64,7 +64,22 @@ variable {E B : C}
 def const [HasInitial C] (S : C) : UvPoly (⊥_ C) S := ⟨initial.to S, sorry⟩
 
 def smul (S : C) (P : UvPoly E B) : UvPoly (S ⨯ E) (S ⨯ B) :=
-  ⟨prod.map (𝟙 S) P.p, sorry⟩
+  ⟨prod.map (𝟙 S) P.p, by
+    exact ExponentiableMorphism.of_isPullback
+      (show IsPullback (prod.map (𝟙 S) P.p) prod.snd prod.snd P.p from {
+        isLimit' := ⟨PullbackCone.isLimitAux' _ (fun t ↦ by
+          refine ⟨prod.lift (t.fst ≫ prod.fst) t.snd, ?_, ?_, ?_⟩
+          · change prod.lift (t.fst ≫ prod.fst) t.snd ≫ prod.map (𝟙 S) P.p = t.fst
+            ext <;> simp [PullbackCone.condition]
+          · change prod.lift (t.fst ≫ prod.fst) t.snd ≫ prod.snd = t.snd
+            simp
+          · intro m h₁ h₂
+            dsimp only [PullbackCone.mk] at m h₁ h₂ ⊢
+            change m ≫ prod.map (𝟙 S) P.p = t.fst at h₁
+            change m ≫ prod.snd = t.snd at h₂
+            apply prod.hom_ext
+            · simpa using congrArg (fun k ↦ k ≫ prod.fst) h₁
+            · simpa using h₂)⟩ })⟩
 
 /-- The product of two polynomials in a single variable. -/
 def prod {E' B'} (P : UvPoly E B) (Q : UvPoly E' B') [HasBinaryCoproducts C] :
@@ -98,7 +113,7 @@ def idIso : (UvPoly.id B).functor ≅ star B ⋙ Over.forget B :=
   isoWhiskerRight (isoWhiskerLeft _ (pushforwardIdIso B)) (Over.forget B)
 
 /-- Evaluating the identity polynomial at an object `X` is isomorphic to `B × X`. -/
-def idApplyIso (X : C) : (id B) @ X ≅ B ⨯ X := sorry
+def idApplyIso (X : C) : (id B) @ X ≅ B ⨯ X := (idIso B).app X
 
 variable {B}
 
