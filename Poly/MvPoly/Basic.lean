@@ -12,6 +12,8 @@ import Poly.ForMathlib.CategoryTheory.LocallyCartesianClosed.Basic
 import Poly.ForMathlib.CategoryTheory.LocallyCartesianClosed.BeckChevalley
 import Poly.ForMathlib.CategoryTheory.LocallyCartesianClosed.Distributivity
 import Mathlib.CategoryTheory.Extensive
+import Poly.ForMathlib.CategoryTheory.LocallyCartesianClosed.Extensive
+import Mathlib.CategoryTheory.Limits.Constructions.LimitsOfProductsAndEqualizers
 --import Poly.UvPoly
 
 /-!
@@ -90,7 +92,27 @@ def prod {I O : C} [HasBinaryProducts C] [FinitaryExtensive C] (P Q : MvPoly I O
   B := pullback P.o Q.o
   i := coprod.desc (pullback.fst _ _ ≫ P.i) (pullback.snd _ _ ≫ Q.i)
   p := coprod.desc (pullback.map _ _ _ _ P.p (𝟙 _) (𝟙 _) (by aesop) (by aesop)) (pullback.map _ _ _ _ (𝟙 _) Q.p (𝟙 _) (by aesop) (by aesop))
-  exp := sorry -- by extensivity -- PreservesPullbacksOfInclusions
+  exp := by
+    letI : HasFiniteLimits C := hasFiniteLimits_of_hasTerminal_and_pullbacks
+    haveI : ExponentiableMorphism P.p := P.exp
+    haveI : ExponentiableMorphism Q.p := Q.exp
+    haveI : ExponentiableMorphism
+        (pullback.map (P.p ≫ P.o) Q.o P.o Q.o P.p (𝟙 _) (𝟙 _) (by aesop) (by aesop)) := by
+      apply ExponentiableMorphism.of_isPullback (snd := pullback.fst _ _)
+        (f := pullback.fst _ _) (g := P.p)
+      apply IsPullback.of_right (t := (IsPullback.of_hasPullback P.o Q.o).flip)
+      · simpa [pullback.map, pullback.lift_snd] using
+          (IsPullback.of_hasPullback (P.p ≫ P.o) Q.o).flip
+      · simp [pullback.map, pullback.lift_fst]
+    haveI : ExponentiableMorphism
+        (pullback.map P.o (Q.p ≫ Q.o) P.o Q.o (𝟙 _) Q.p (𝟙 _) (by aesop) (by aesop)) := by
+      apply ExponentiableMorphism.of_isPullback (snd := pullback.snd _ _)
+        (f := pullback.snd _ _) (g := Q.p)
+      apply IsPullback.of_right (t := IsPullback.of_hasPullback P.o Q.o)
+      · simpa [pullback.map, pullback.lift_fst] using
+          IsPullback.of_hasPullback P.o (Q.p ≫ Q.o)
+      · simp [pullback.map, pullback.lift_snd]
+    exact coprod_desc_exponentiable _ _
   o := pullback.fst (P.o) Q.o ≫ P.o
 
 protected def functor {I O : C} (P : MvPoly I O) :

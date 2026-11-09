@@ -40,7 +40,7 @@ As part of this formalization, we also formalize locally cartesian closed catego
   - [x] Linear polynomials
   - [ ] Symmetric polynomials
   - [ ] Sums of polynomials
-  - [ ] Products of polynomials
+  - [x] Products in finitary extensive categories: construction and exponentiability (`MvPoly.prod`)
   - [x] Composition of polynomials
   - [ ] The classifying property of polynomial functors
   - [ ] The bicategory of multivariate polynomial functors
